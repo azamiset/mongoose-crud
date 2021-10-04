@@ -1,11 +1,12 @@
 const mongoose = require('mongoose');
+const validator = require('validator');
 
 // Connection <Membuat koneksi ke database 'thapamongoose'>
 mongoose.connect('mongodb://localhost:27017/thapamongoose', { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log("conection successfully..."))
   .catch((err) => console.log(err));
 
-// Schema - Mengunakan validation buatan sendiri
+// Schema - Mengunakan library validator
 const playlistSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -36,6 +37,14 @@ const playlistSchema = new mongoose.Schema({
     trim: true,
     lowercase: true
   },
+  email: {
+    type: String,
+    validate(value) {
+      if (!validator.isEmail(value)) {
+        throw new Error('Alamat email anda tidak valid');
+      }
+    }
+  },
   active: Boolean,
   date: {
     type: Date,
@@ -49,11 +58,11 @@ const Playlist = new mongoose.model('Playlist', playlistSchema);
 const createDocument = async () => {
   try {
     const reactPlaylist = new Playlist({
-      name: '      asgard js     ',
-      ctype: 'BackEnd',
+      name: '      my sql     ',
+      ctype: 'DataBase',
+      email: 'aku',
       videos: 50,
       author: 'Wandy Azami',
-      active: true
     });
 
     const result = await reactPlaylist.save();
