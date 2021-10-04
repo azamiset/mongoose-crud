@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
-    "mongoose": "^6.0.8"
+    "mongoose": "^6.0.8",
+    "validator": "^13.6.0"
   },
   "devDependencies": {},
   "scripts": {
